@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Presentación — Jared López</title>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --card: #0b1220;
+            --accent: #06b6d4;
+            --muted: #9ca3af;
+            color-scheme: dark
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial;
+            background: linear-gradient(180deg, #071026 0%, #071226 100%);
+            color: #e6eef6;
+            line-height: 1.45
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 36px auto;
+            padding: 20px
+        }
+
+        header {
+            display: flex;
+            gap: 18px;
+            align-items: center
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 36px;
+            color: #081126;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .6)
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px
+        }
+
+        p.lead {
+            margin: 6px 0;
+            color: var(--muted)
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 18px;
+            margin-top: 18px
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .6)
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px
+        }
+
+        .skill {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            font-weight: 600;
+            font-size: 13px
+        }
+
+        .projects {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .project {
+            padding: 10px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent)
+        }
+
+        footer {
+            margin-top: 18px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .btn {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #04202a;
+            border: none;
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        a.link {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        @media (max-width:880px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .avatar {
+                width: 84px;
+                height: 84px;
+                font-size: 28px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="avatar" id="avatar">JL</div>
+            <div>
+                <h1 id="name">Jared López</h1>
+                <p class="lead" id="tagline">Estudiante de Ingeniería en Sistemas Computacionales — Apasionado por la
+                    programación y el desarrollo de software.</p>
+                <p class="small">Ubicación: Teposcolula, México · Disponibilidad: Tardes de 4 a 8 pm · Email:  Jaroloco00@gmail.com<a
+                        class="link" href="mailto:jared@example.com" id="email">jared@example.com</a></p>
+            </div>
+        </header>
+
+        <div class="grid">
+            <main>
+                <section class="card">
+                    <h3>Sobre mí</h3>
+                    <p id="about">Soy estudiante de Ingeniería en Sistemas Computacionales. Me interesa aprender
+                        programación, desarrollo de aplicaciones, bases de datos y gráficos por computadora.</p>
+                </section>
+
+                <section class="card" style="margin-top:12px;">
+                    <h3>Proyectos destacados</h3>
+                    <div class="projects" id="projects">
+                        <div class="project">
+                            <strong>Proyecto 1 — Juego arcade</strong>
+                            <div class="small">Descripción corta: Juego creado con Java y librería gráfica. Rol:
+                                Programación y lógica de juego.</div>
+                        </div>
+                        <div class="project">
+                            <strong>Proyecto 2 — Sistema de alquiler</strong>
+                            <div class="small">Descripción corta: Sistema web para renta de consolas. Tecnologías: HTML,
+                                CSS, JavaScript, MySQL.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card" style="margin-top:12px;">
+                    <h3>Educación</h3>
+                    <p class="small"><strong>Ingeniería en Sistemas Computacionales</strong><br />Universidad — Cursos
+                        relevantes: Programación, Estructuras de Datos, Bases de Datos, Gráficas por Computadora.</p>
+                </section>
+
+            </main>
+
+            <aside>
+                <div class="card">
+                    <h4>Habilidades</h4>
+                    <div class="skills" id="skills">
+                        <span class="skill">Java</span>
+                        <span class="skill">SQL</span>
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">HTML/CSS</span>
+                        <span class="skill">Estructuras de Datos</span>
+                    </div>
+                </div>
+
+
+        </div>
+
+        <div class="card" style="margin-top:12px;text-align:center;">
+            <p class="small">Última actualización: <span id="updated">20 de noviembre de 2025</span></p>
+        </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p class="small">creado por JaryAssasin</code>.</p>
+    </footer>
+    </div>
+
+    <script>
+        // Funciones útiles para editar desde el navegador
+        function toggleTheme() {
+            document.documentElement.style.setProperty('--bg', '#f8fafc');
+            document.documentElement.style.setProperty('--card', '#ffffff');
+            document.body.style.color = document.body.style.color === '#071126' ? '#e6eef6' : '#071126';
+            document.body.style.background = document.body.style.background === 'white' ? 'linear-gradient(180deg,#071026 0%, #071226 100%)' : 'white';
+            // efecto simple de contraste
+        }
+        function printPDF() { window.print(); }
+
+        // Ejemplo: reemplazar contenidos rápido (puedes borrarlo)
+        // Si quieres que ponga tu nombre real, email o teléfono desde variables, cámbialos aquí:
+        const data = {
+            name: 'Jared López',
+            tagline: 'Estudiante de Ingeniería en Sistemas Computacionales',
+            email: 'Jaroloco00@gmail.com',
+            phone: '+52 000 000 0000',
+            about: 'Apasionado por la programación: Java, bases de datos y gráficos. Siempre aprendiendo y creando proyectos prácticos.',
+        };
+        document.getElementById('name').textContent = data.name;
+        document.getElementById('tagline').textContent = data.tagline;
+        document.getElementById('email').textContent = data.email;
+        document.getElementById('email').href = 'mailto:' + data.email;
+        document.getElementById('phone').textContent = data.phone;
+        document.getElementById('about').textContent = data.about;
+    </script>
+</body>
+
+</html>
