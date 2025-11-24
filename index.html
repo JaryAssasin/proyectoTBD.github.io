@@ -1,250 +1,247 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Presentación — Jared López</title>
-    <style>
-        :root {
-            --bg: #0f1724;
-            --card: #0b1220;
-            --accent: #06b6d4;
-            --muted: #9ca3af;
-            color-scheme: dark
-        }
 
-        * {
-            box-sizing: border-box
-        }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        body {
-            margin: 0;
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial;
-            background: linear-gradient(180deg, #071026 0%, #071226 100%);
-            color: #e6eef6;
-            line-height: 1.45
-        }
+    <title>SB Admin 2 - Login</title>
 
-        .container {
-            max-width: 960px;
-            margin: 36px auto;
-            padding: 20px
-        }
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-        header {
-            display: flex;
-            gap: 18px;
-            align-items: center
-        }
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css?v=2" rel="stylesheet">
 
-        .avatar {
-            width: 110px;
-            height: 110px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent), #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 36px;
-            color: #081126;
-            box-shadow: 0 6px 18px rgba(2, 6, 23, .6)
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 28px
-        }
-
-        p.lead {
-            margin: 6px 0;
-            color: var(--muted)
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 18px;
-            margin-top: 18px
-        }
-
-        .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(2, 6, 23, .6)
-        }
-
-        .small {
-            font-size: 13px;
-            color: var(--muted)
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px
-        }
-
-        .skill {
-            padding: 6px 10px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.04);
-            font-weight: 600;
-            font-size: 13px
-        }
-
-        .projects {
-            display: flex;
-            flex-direction: column;
-            gap: 12px
-        }
-
-        .project {
-            padding: 10px;
-            border-radius: 10px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent)
-        }
-
-        footer {
-            margin-top: 18px;
-            text-align: center;
-            color: var(--muted);
-            font-size: 13px
-        }
-
-        .btn {
-            display: inline-flex;
-            gap: 8px;
-            align-items: center;
-            padding: 8px 12px;
-            border-radius: 10px;
-            background: var(--accent);
-            color: #04202a;
-            border: none;
-            cursor: pointer;
-            font-weight: 700
-        }
-
-        a.link {
-            color: var(--accent);
-            text-decoration: none
-        }
-
-        @media (max-width:880px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .avatar {
-                width: 84px;
-                height: 84px;
-                font-size: 28px
-            }
-        }
-    </style>
 </head>
 
-<body>
+<body class="bg-gradient-primary">
+
     <div class="container">
-        <header>
-            <div class="avatar" id="avatar">JL</div>
-            <div>
-                <h1 id="name">Jared López</h1>
-                <p class="lead" id="tagline">Estudiante de Ingeniería en Sistemas Computacionales — Apasionado por la
-                    programación y el desarrollo de software.</p>
-                <p class="small">Ubicación: Teposcolula, México · Disponibilidad: Tardes de 4 a 8 pm · Email:  Jaroloco00@gmail.com<a
-                        class="link" href="mailto:jared@example.com" id="email">jared@example.com</a></p>
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <!-- Left column: centered icon -->
+                            <div class="col-lg-6 d-none d-lg-flex bg-login-image" style="align-items: center; justify-content: center; background-color: transparent;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/13/13973.png" alt="Icono" style="width:160px; height:160px; object-fit:contain; opacity:0.95;">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">BIENVENIDO DE VUELTA!</h1>
+                                    </div>
+                                    <form class="user" id="loginForm">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="username" name="username" required
+                                                placeholder="Nombre de Usuario">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="password" name="password" required
+                                                placeholder="Contraseña">
+                                        </div>
+                                        <div id="loginMessage" class="alert alert-danger" style="display: none;">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Iniciar Sesión
+                                        </button>
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="register.html">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            (function(){
+                                try{
+                                    // Only attempt redirects if client has an 'isLoggedIn' flag.
+                                    var isLogged = localStorage.getItem('isLoggedIn') === 'true';
+                                    if(!isLogged) return; // not authenticated in client storage -> show login page
+
+                                    // If client thinks it's logged, verify server-side session quickly to avoid stale localStorage causing redirects.
+                                    // This uses the existing PHP endpoint `php/check_session.php` which returns JSON { loggedIn: true/false, usuario: {...} }
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('GET', 'php/check_session.php', true);
+                                    xhr.onreadystatechange = function() {
+                                        if(xhr.readyState !== 4) return;
+                                        try{
+                                            if(xhr.status === 200){
+                                                var resp = {};
+                                                try { resp = JSON.parse(xhr.responseText || '{}'); } catch(e){ resp = {}; }
+                                                if(resp.loggedIn){
+                                                    var role = (resp.usuario && resp.usuario.rol) ? resp.usuario.rol.toString().trim().toLowerCase() : (localStorage.getItem('userRoleNormalized') || '').toString().trim().toLowerCase();
+                                                    // Update localStorage with server truth to keep client and server consistent
+                                                    if(resp.usuario){
+                                                        localStorage.setItem('userRole', resp.usuario.rol || '');
+                                                        localStorage.setItem('userRoleNormalized', (resp.usuario.rol || '').toString().toLowerCase());
+                                                        localStorage.setItem('userDepartment', resp.usuario.departamento || '');
+                                                        localStorage.setItem('isLoggedIn', 'true');
+                                                    }
+                                                    // Now apply redirect rules based on server role
+                                                    if(role === 'administrador') return;
+                                                    if(role === 'cliente'){
+                                                        if(window.location.pathname.toLowerCase().indexOf('/cliente/') === -1){
+                                                            window.location.href = 'Cliente/clientesperfil.html';
+                                                            return;
+                                                        }
+                                                    }
+                                                    if(role === 'usuario'){
+                                                        var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]');
+                                                        if(userLink){ var li = userLink.closest('li'); if(li) li.style.display = 'none'; else userLink.style.display = 'none'; }
+                                                        return;
+                                                    }
+                                                    // other roles: keep current page (login) or implement other redirects if needed
+                                                } else {
+                                                    // server says not logged in -> clear client flags to avoid stale redirects
+                                                    localStorage.removeItem('isLoggedIn');
+                                                    // do not redirect; user stays on login
+                                                }
+                                            } else {
+                                                // on error, prefer to NOT redirect (fail-safe)
+                                                localStorage.removeItem('isLoggedIn');
+                                            }
+                                        }catch(e){
+                                            // parsing error or other -> clear and do nothing
+                                            localStorage.removeItem('isLoggedIn');
+                                        }
+                                    };
+                                    xhr.send();
+                                }catch(e){
+                                    // if anything breaks, don't redirect
+                                    try{ localStorage.removeItem('isLoggedIn'); }catch(ignore){}
+                                }
+                            })();
+                        </script>
             </div>
-        </header>
-
-        <div class="grid">
-            <main>
-                <section class="card">
-                    <h3>Sobre mí</h3>
-                    <p id="about">Soy estudiante de Ingeniería en Sistemas Computacionales. Me interesa aprender
-                        programación, desarrollo de aplicaciones, bases de datos y gráficos por computadora.</p>
-                </section>
-
-                <section class="card" style="margin-top:12px;">
-                    <h3>Proyectos destacados</h3>
-                    <div class="projects" id="projects">
-                        <div class="project">
-                            <strong>Proyecto 1 — Juego arcade</strong>
-                            <div class="small">Descripción corta: Juego creado con Java y librería gráfica. Rol:
-                                Programación y lógica de juego.</div>
-                        </div>
-                        <div class="project">
-                            <strong>Proyecto 2 — Sistema de alquiler</strong>
-                            <div class="small">Descripción corta: Sistema web para renta de consolas. Tecnologías: HTML,
-                                CSS, JavaScript, MySQL.</div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="card" style="margin-top:12px;">
-                    <h3>Educación</h3>
-                    <p class="small"><strong>Ingeniería en Sistemas Computacionales</strong><br />Universidad — Cursos
-                        relevantes: Programación, Estructuras de Datos, Bases de Datos, Gráficas por Computadora.</p>
-                </section>
-
-            </main>
-
-            <aside>
-                <div class="card">
-                    <h4>Habilidades</h4>
-                    <div class="skills" id="skills">
-                        <span class="skill">Java</span>
-                        <span class="skill">SQL</span>
-                        <span class="skill">JavaScript</span>
-                        <span class="skill">HTML/CSS</span>
-                        <span class="skill">Estructuras de Datos</span>
-                    </div>
-                </div>
-
 
         </div>
 
-        <div class="card" style="margin-top:12px;text-align:center;">
-            <p class="small">Última actualización: <span id="updated">20 de noviembre de 2025</span></p>
-        </div>
-        </aside>
     </div>
 
-    <footer>
-        <p class="small">creado por JaryAssasin</code>.</p>
-    </footer>
-    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
 
     <script>
-        // Funciones útiles para editar desde el navegador
-        function toggleTheme() {
-            document.documentElement.style.setProperty('--bg', '#f8fafc');
-            document.documentElement.style.setProperty('--card', '#ffffff');
-            document.body.style.color = document.body.style.color === '#071126' ? '#e6eef6' : '#071126';
-            document.body.style.background = document.body.style.background === 'white' ? 'linear-gradient(180deg,#071026 0%, #071226 100%)' : 'white';
-            // efecto simple de contraste
-        }
-        function printPDF() { window.print(); }
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('loginMessage');
+            
+            messageDiv.style.display = 'block';
+            messageDiv.className = 'alert alert-info';
+            messageDiv.textContent = 'Iniciando sesión...';
 
-        // Ejemplo: reemplazar contenidos rápido (puedes borrarlo)
-        // Si quieres que ponga tu nombre real, email o teléfono desde variables, cámbialos aquí:
-        const data = {
-            name: 'Jared López',
-            tagline: 'Estudiante de Ingeniería en Sistemas Computacionales',
-            email: 'Jaroloco00@gmail.com',
-            phone: '+52 000 000 0000',
-            about: 'Apasionado por la programación: Java, bases de datos y gráficos. Siempre aprendiendo y creando proyectos prácticos.',
-        };
-        document.getElementById('name').textContent = data.name;
-        document.getElementById('tagline').textContent = data.tagline;
-        document.getElementById('email').textContent = data.email;
-        document.getElementById('email').href = 'mailto:' + data.email;
-        document.getElementById('phone').textContent = data.phone;
-        document.getElementById('about').textContent = data.about;
+            // Enviar datos al servidor usando AJAX
+            $.ajax({
+                url: 'php/login.php',
+                type: 'POST',
+                data: {
+                    username: username,
+                    password: password
+                },
+                dataType: 'json', // Especificar que esperamos JSON
+                success: function(data) {
+                    console.log('Respuesta del servidor:', data);
+                    
+                    if (data.success) {
+                        // Login exitoso
+                        messageDiv.className = 'alert alert-success';
+                        messageDiv.textContent = 'Login exitoso. Redirigiendo...';
+
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userName', data.usuario.Nombre);
+                        // Guardar rol y versión normalizada
+                        var rol = (data.usuario.rol || '').toString();
+                        localStorage.setItem('userRole', rol);
+                        localStorage.setItem('userRoleNormalized', rol.toLowerCase());
+                        localStorage.setItem('userDepartment', data.usuario.departamento);
+
+                        setTimeout(() => {
+                            var roleNorm = (localStorage.getItem('userRoleNormalized') || '').toLowerCase();
+                            if (roleNorm === 'administrador') {
+                                window.location.href = 'usuarios.html';
+                            } else if (roleNorm === 'cliente') {
+                                window.location.href = 'Cliente/clientesperfil.html';
+                            } else {
+                                // Default area for other authenticated users
+                                window.location.href = 'clientes.html';
+                            }
+                        }, 800);
+                    } else {
+                        // Login fallido
+                        messageDiv.className = 'alert alert-danger';
+                        messageDiv.textContent = data.message || 'Usuario o contraseña incorrectos';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error de AJAX:', status, error); // Para depuración
+                    messageDiv.className = 'alert alert-danger';
+                    messageDiv.textContent = 'Error de conexión al servidor: ' + error;
+                }
+            });
+        });
     </script>
+    <script>
+        (function(){
+            try{
+                // Only run role-based redirects / UI hiding when the user is logged in.
+                var isLogged = localStorage.getItem('isLoggedIn') === 'true';
+                if(!isLogged) return; // not authenticated in client storage -> show login page
+
+                var role = localStorage.getItem('userRole') || '';
+                var roleNorm = (localStorage.getItem('userRoleNormalized') || role).toString().trim().toLowerCase();
+                if(roleNorm === 'administrador') return;
+                if(roleNorm === 'cliente'){
+                    if(window.location.pathname.toLowerCase().indexOf('/cliente/') === -1){
+                        window.location.href = 'Cliente/clientesperfil.html';
+                        return;
+                    }
+                }
+                if(roleNorm === 'usuario'){
+                    var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]');
+                    if(userLink){
+                        var li = userLink.closest('li');
+                        if(li) li.style.display = 'none'; else userLink.style.display = 'none';
+                    }
+                    return;
+                
+                }
+                var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]');
+                if(userLink){ if(userLink.parentElement) userLink.parentElement.style.display = 'none'; else userLink.style.display = 'none'; }
+            }catch(e){ }
+        })();
+    </script>
+
 </body>
 
 </html>

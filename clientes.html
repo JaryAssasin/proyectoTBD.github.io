@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Clientes - SB Admin 2</title>
+
+    <!-- Custom fonts and styles -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css?v=2" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <script>
+        // Early role class on <html> to allow CSS-based hiding before DOM scripts run
+        (function(){
+            var role = localStorage.getItem('userRole') || '';
+            var roleNormalized = localStorage.getItem('userRoleNormalized') || role.toString().trim().toLowerCase();
+            if (roleNormalized) {
+                try { document.documentElement.classList.add('role-' + roleNormalized); } catch(e){}
+            }
+            // If not logged in, send to login
+            if (!localStorage.getItem('isLoggedIn')) {
+                window.location.href = 'index.html';
+            }
+        })();
+    </script>
+    <style>
+        /* Hide Usuarios link early for role 'usuario' */
+        .role-usuario #accordionSidebar a.nav-link[href="usuarios.html"] {
+            display: none !important;
+        }
+        /* Optional: hide the list item if browser supports :has() */
+        .role-usuario #accordionSidebar li:has(> a.nav-link[href="usuarios.html"]) { display: none !important; }
+    </style>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Videojuegos</div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="clientes.html">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="videojuegos.html">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Videojuegos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="compañias.html">
+                    <i class="fas fa-building"></i>
+                    <span>Compañías</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="pedidos.html">
+                    <i class="fas fa-box"></i>
+                    <span>Pedidos</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="usuarios.html">
+                    <i class="fas fa-user"></i>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <!-- End Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <h5 class="m-0 font-weight-bold text-primary">Panel de Clientes</h5>
+                </nav>
+
+                <!-- Main Content -->
+                <div class="container-fluid">
+                    <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
+                    <p class="mb-4">Lista de clientes registrados en el sistema.</p>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Lista de Clientes</h6>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCrearCliente">
+                                <i class="fas fa-user-plus"></i> Nuevo Cliente
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="tablaClientes" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Contraseña</th>
+                                            <th>Teléfono</th>
+                                            <th>Dirección</th>
+                                            <th>Fecha Registro</th>
+                                            <th>ID Pedido</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="text-center my-auto">
+                        <span>© Videojuegos 2025</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR CLIENTE -->
+    <div class="modal fade" id="modalCrearCliente" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="formCrearCliente">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nuevo Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group"><label>Nombre</label><input type="text" name="nombre" class="form-control" required></div>
+                        <div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" required></div>
+                        <div class="form-group"><label>Contraseña</label><input type="text" name="contrasena" class="form-control" required></div>
+                        <div class="form-group"><label>Teléfono</label><input type="text" name="telefono" class="form-control" required></div>
+                        <div class="form-group"><label>Dirección</label><input type="text" name="direccion" class="form-control" required></div>
+                        <div class="form-group"><label>ID Pedido</label><input type="number" name="id_pedido" class="form-control"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR CLIENTE (moved outside to avoid nested forms) -->
+    <div class="modal fade" id="modalEditarCliente" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="formEditarCliente">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id_cliente" id="edit_id_cliente">
+                        <div class="form-group"><label>Nombre</label><input type="text" name="nombre" id="edit_nombre" class="form-control" required></div>
+                        <div class="form-group"><label>Email</label><input type="email" name="email" id="edit_email" class="form-control" required></div>
+                        <div class="form-group"><label>Contraseña</label><input type="text" name="contrasena" id="edit_contrasena" class="form-control" required></div>
+                        <div class="form-group"><label>Teléfono</label><input type="text" name="telefono" id="edit_telefono" class="form-control" required></div>
+                        <div class="form-group"><label>Dirección</label><input type="text" name="direccion" id="edit_direccion" class="form-control" required></div>
+                        <div class="form-group"><label>ID Pedido</label><input type="number" name="id_pedido" id="edit_id_pedido" class="form-control"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+        var tabla = $('#tablaClientes').DataTable({
+                "ajax": "php/obtener_clientes.php",
+                "columns": [
+                    { "data": "id_cliente" },
+                    { "data": "nombre" },
+                    { "data": "email" },
+                    { "data": "contraseña" },
+                    { "data": "telefono" },
+                    { "data": "direccion" },
+                    { "data": "fecha_registro" },
+                    { "data": "id_pedido" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return `
+                                <button class="btn btn-warning btn-sm btn-editar" data-id="${row.id_cliente}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm btn-eliminar" data-id="${row.id_cliente}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            `;
+                        }
+                    }
+                ]
+            });
+            
+            // Crear cliente
+            $('#formCrearCliente').on('submit', function(e){
+                e.preventDefault();
+                $.post('php/insertar_clientes.php', $(this).serialize(), function(res){
+                    if(res.status === 'ok'){
+                        $('#modalCrearCliente').modal('hide');
+                        $('#formCrearCliente')[0].reset();
+                        tabla.ajax.reload();
+                        Swal.fire('Éxito', res.msg, 'success');
+                    } else {
+                        Swal.fire('Error', res.msg || 'No se pudo crear', 'error');
+                    }
+                }, 'json').fail(function(){
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
+            });
+
+            // Editar cliente: abrir modal y cargar datos
+            $('#tablaClientes').on('click', '.btn-editar', function(){
+                var data = tabla.row($(this).parents('tr')).data();
+                $('#edit_id_cliente').val(data.id_cliente);
+                $('#edit_nombre').val(data.nombre);
+                $('#edit_email').val(data.email);
+                $('#edit_contrasena').val(data.contrasena);
+                $('#edit_telefono').val(data.telefono);
+                $('#edit_direccion').val(data.direccion);
+                $('#edit_id_pedido').val(data.id_pedido);
+                $('#modalEditarCliente').modal('show');
+            });
+
+            // Enviar edición
+            $('#formEditarCliente').on('submit', function(e){
+                e.preventDefault();
+                $.post('php/editar_clientes.php', $(this).serialize(), function(res){
+                    if(res.status === 'ok'){
+                        $('#modalEditarCliente').modal('hide');
+                        tabla.ajax.reload();
+                        Swal.fire('Actualizado', res.msg, 'success');
+                    } else {
+                        Swal.fire('Error', res.msg || 'No se pudo actualizar', 'error');
+                    }
+                }, 'json').fail(function(){
+                    Swal.fire('Error', 'Error de conexión', 'error');
+                });
+            });
+
+            // Eliminar cliente
+            $('#tablaClientes').on('click', '.btn-eliminar', function(){
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: '¿Eliminar cliente?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Eliminar'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        $.post('php/eliminar_clientes.php', { id_cliente: id }, function(res){
+                            if(res.status === 'ok'){
+                                tabla.ajax.reload();
+                                Swal.fire('Eliminado', res.msg, 'success');
+                            } else {
+                                Swal.fire('Error', res.msg || 'No se pudo eliminar', 'error');
+                            }
+                        }, 'json').fail(function(){
+                            Swal.fire('Error', 'Error de conexión', 'error');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        // Unified role handling: redirect/hide sidebar items depending on role
+        (function(){
+            try{
+                var role = localStorage.getItem('userRole') || '';
+                var roleNorm = (localStorage.getItem('userRoleNormalized') || role).toString().trim().toLowerCase();
+
+                // Admin sees everything
+                if(roleNorm === 'administrador') return;
+
+                // Cliente: redirect to Cliente area
+                if(roleNorm === 'cliente'){
+                    if(window.location.pathname.toLowerCase().indexOf('/cliente/') === -1){
+                        window.location.href = 'Cliente/clientesperfil.html';
+                        return;
+                    }
+                }
+
+                // Usuario: hide only the Usuarios link
+                if(roleNorm === 'usuario'){
+                    var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]');
+                    if(userLink){ if(userLink.parentElement) userLink.parentElement.style.display = 'none'; else userLink.style.display = 'none'; }
+                    return;
+                }
+
+                // Default: hide Usuarios link for non-admins
+                var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]');
+                if(userLink){ if(userLink.parentElement) userLink.parentElement.style.display = 'none'; else userLink.style.display = 'none'; }
+            }catch(e){ console.error('Role control error', e); }
+        })();
+    </script>
+</body>
+</html>
