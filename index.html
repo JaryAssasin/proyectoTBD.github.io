@@ -191,7 +191,7 @@
                             if (roleNorm === 'administrador') {
                                 window.location.href = 'usuarios.html';
                             } else if (roleNorm === 'cliente') {
-                                window.location.href = 'Cliente/clientesperfil.html';
+                                window.location.href = 'Cliente/Clientescatalogo.php';
                             } else {
                                 // Default area for other authenticated users
                                 window.location.href = 'clientes.html';
@@ -223,7 +223,7 @@
                 if(roleNorm === 'administrador') return;
                 if(roleNorm === 'cliente'){
                     if(window.location.pathname.toLowerCase().indexOf('/cliente/') === -1){
-                        window.location.href = 'Cliente/clientesperfil.html';
+                        window.location.href = 'Cliente/Clientescatalogo.php';
                         return;
                     }
                 }

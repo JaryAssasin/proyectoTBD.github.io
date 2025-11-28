@@ -307,7 +307,7 @@
                 var role = localStorage.getItem('userRole') || '';
                 var roleNorm = (localStorage.getItem('userRoleNormalized') || role).toString().trim().toLowerCase();
                 if (roleNorm === 'administrador') return;
-                if (roleNorm === 'cliente') { if (window.location.pathname.toLowerCase().indexOf('/cliente/') === -1) { window.location.href = 'Cliente/clientesperfil.html'; return; } }
+                if (roleNorm === 'cliente') { if (window.location.pathname.toLowerCase().indexOf('/cliente/') === -1) { window.location.href = 'Cliente/Clientescatalogo.php'; return; } }
                 if (roleNorm === 'usuario') { var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]'); if (userLink) { if (userLink.parentElement) userLink.parentElement.style.display = 'none'; else userLink.style.display = 'none'; } return; }
                 var userLink = document.querySelector('#accordionSidebar a.nav-link[href="usuarios.html"]'); if (userLink) { if (userLink.parentElement) userLink.parentElement.style.display = 'none'; else userLink.style.display = 'none'; }
             } catch (e) { console.error('Role control error', e); }
