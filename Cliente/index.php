@@ -1,58 +1,3 @@
-<?php
-// index.php
-// Coloca este archivo en htdocs (XAMPP). Asegúrate de tener la extensión php-pgsql habilitada.
-
-// ------- CONFIGURA ESTO -------
-$host = "localhost";
-$port = "5432";
-$dbname = "Videojuegos";  // <-- Nombre de tu base de datos en pgAdmin
-$user = "postgres";       // <-- Usuario de PostgreSQL
-$password = "12345678";   // <-- Contraseña del usuario
-// -------------------------------
-
-function connect_db() {
-    global $db_host, $db_port, $db_name, $db_user, $db_pass;
-    $conn_str = "host={$db_host} port={$db_port} dbname={$db_name} user={$db_user} password={$db_pass}";
-    $db = @pg_connect($conn_str);
-    if (!$db) {
-        http_response_code(500);
-        echo json_encode(['error' => 'No se pudo conectar a la base de datos. Revisa credenciales y que Postgres esté corriendo.']);
-        exit;
-    }
-    return $db;
-}
-
-// API endpoint: devuelve JSON con los videojuegos (soporta q= búsqueda)
-if (isset($_GET['action']) && $_GET['action'] === 'api') {
-    header('Content-Type: application/json; charset=utf-8');
-    $q = isset($_GET['q']) ? trim($_GET['q']) : '';
-    $db = connect_db();
-
-    if ($q === '') {
-        $result = pg_query($db, "SELECT id_videojuego, titulo, descripcion, precio, existencia, plataforma, fecha_ingreso FROM videojuegos ORDER BY titulo");
-    } else {
-        // búsqueda segura con parámetros
-        $like = '%' . $q . '%';
-        $result = pg_query_params($db,
-            "SELECT id_videojuego, titulo, descripcion, precio, existencia, plataforma, fecha_ingreso
-             FROM videojuegos
-             WHERE titulo ILIKE $1 OR descripcion ILIKE $1 OR plataforma ILIKE $1
-             ORDER BY titulo",
-            array($like)
-        );
-    }
-
-    if (!$result) {
-        echo json_encode(['error' => 'Error en consulta a la base de datos.']);
-        exit;
-    }
-    $rows = [];
-    while ($r = pg_fetch_assoc($result)) $rows[] = $r;
-    echo json_encode($rows);
-    pg_close($db);
-    exit;
-}
-?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -112,8 +57,8 @@ body{margin:0;font-family:Inter,Segoe UI,Arial;background:linear-gradient(180deg
 </div>
 
 <script>
-// URL del API (mismo archivo, parámetro action=api)
-const API = location.pathname + '?action=api';
+// 🚀 API CORRECTA — subes un nivel y llamas al archivo real
+const API = "../obtener_videojuegos.php";
 
 const grid = document.getElementById('grid');
 const empty = document.getElementById('empty');
@@ -123,12 +68,12 @@ const filterPlatform = document.getElementById('filterPlatform');
 let allGames = [];
 
 async function loadGames(q='') {
-  const url = API + (q ? '&q=' + encodeURIComponent(q) : '');
+  const url = API + (q ? '?q=' + encodeURIComponent(q) : '');
   try {
     const res = await fetch(url);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
-    allGames = data;
+    allGames = data.data ?? data; // por si tu API envía data[]
     render();
   } catch (e) {
     grid.innerHTML = '<div class="empty">Error cargando juegos. Revisa la conexión y credenciales del servidor.</div>';
@@ -139,6 +84,7 @@ async function loadGames(q='') {
 function render() {
   const q = searchInput.value.trim().toLowerCase();
   const platform = filterPlatform.value;
+
   const filtered = allGames.filter(g => {
     if (platform && g.plataforma !== platform) return false;
     if (!q) return true;
@@ -152,7 +98,9 @@ function render() {
     empty.style.display = 'block';
     return;
   }
+
   empty.style.display = 'none';
+
   grid.innerHTML = filtered.map(g => {
     const imgPath = `images/${g.id_videojuego}.jpg`;
     const price = Number(g.precio).toFixed(2);
@@ -161,7 +109,8 @@ function render() {
     return `
       <div class="card">
         <div class="thumb">
-          <img src="${imgPath}" alt="${escapeHtml(g.titulo)}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,${encodeURIComponent(defaultSVG())}'" />
+          <img src="${imgPath}" alt="${escapeHtml(g.titulo)}"
+            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,${encodeURIComponent(defaultSVG())}'" />
         </div>
         <h3 class="h3">${escapeHtml(g.titulo)}</h3>
         <div class="row">
@@ -178,15 +127,28 @@ function render() {
   }).join('');
 }
 
-function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
-
-function defaultSVG(){ 
-  return `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%' height='100%' fill='%23061226'/><text x='50%' y='50%' fill='%239aa4b2' font-size='20' text-anchor='middle' dominant-baseline='middle'>Imagen no disponible</text></svg>`;
+function escapeHtml(s){
+  if(!s) return '';
+  return s.replaceAll('&','&amp;').replaceAll('<','&lt;')
+          .replaceAll('>','&gt;').replaceAll('"','&quot;');
 }
 
-// eventos
+function defaultSVG(){ 
+  return `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'>
+    <rect width='100%' height='100%' fill='%23061226'/>
+    <text x='50%' y='50%' fill='%239aa4b2' font-size='20'
+      text-anchor='middle' dominant-baseline='middle'>
+      Imagen no disponible
+    </text></svg>`;
+}
+
+// Eventos
 let debounce;
-searchInput.addEventListener('input', ()=>{ clearTimeout(debounce); debounce = setTimeout(()=>{ loadGames(searchInput.value); }, 300); });
+searchInput.addEventListener('input', ()=>{
+  clearTimeout(debounce);
+  debounce = setTimeout(()=> loadGames(searchInput.value), 300);
+});
+
 filterPlatform.addEventListener('change', render);
 
 // carga inicial
