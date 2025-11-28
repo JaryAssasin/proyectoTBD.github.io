@@ -58,7 +58,7 @@ body{margin:0;font-family:Inter,Segoe UI,Arial;background:linear-gradient(180deg
 
 <script>
 // 🚀 API CORRECTA — subes un nivel y llamas al archivo real
-const API = "../obtener_videojuegos.php";
+const API = "obtener_videojuegos.php";
 
 const grid = document.getElementById('grid');
 const empty = document.getElementById('empty');
