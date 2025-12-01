@@ -34,7 +34,7 @@ body{margin:0;font-family:Inter,Segoe UI,Arial;background:linear-gradient(180deg
   <div class="header">
     <div>
       <div class="title">🎮 Catálogo — Juegos</div>
-      <div style="color:var(--muted);font-size:0.9rem">Tu catálogo conectado a PostgreSQL</div>
+      <div style="color:var(--muted);font-size:0.9rem">Tu catálogo confiable de videojuegos</div>
     </div>
 
     <div class="controls">
