@@ -40,29 +40,28 @@ if (empty($items)) {
 }
 
 // Iniciar transacción
+// Iniciar transacción
 pg_query($conexion, 'BEGIN');
 
 try {
-    // Insertar pedido principal
-    $sqlPedido = 'INSERT INTO pedidos ("fecha_pedido","total","estado") VALUES (CURRENT_DATE, $1, $2) RETURNING id_pedido';
-    $res = pg_query_params($conexion, $sqlPedido, array($total, 'Pendiente'));
-    if (!$res) throw new Exception(pg_last_error($conexion));
+    // Vamos a crear UN pedido por cada item (el cliente ve un solo pedido, pero en la BD queda uno por juego)
+    $sqlInsertPedido = 'INSERT INTO pedidos ("fecha_pedido","total","estado","id_videojuego") VALUES (CURRENT_DATE, $1, $2, $3) RETURNING id_pedido';
+    $sqlStock = 'UPDATE videojuegos SET existencia = existencia - $1 WHERE id_videojuego = $2 AND existencia >= $1';
 
-    $row = pg_fetch_assoc($res);
-    $id_pedido = $row['id_pedido'];
-
-    // Insertar detalles (si no existe la tabla detalle_pedidos, el INSERT fallará)
-    $sqlDetalle = 'INSERT INTO detalle_pedidos ("id_pedido","id_videojuego","cantidad","precio_unitario") VALUES ($1,$2,$3,$4)';
-    $sqlStock   = 'UPDATE videojuegos SET existencia = existencia - $1 WHERE id_videojuego = $2 AND existencia >= $1';
+    $inserted = [];
 
     foreach ($items as $it) {
         $id = $it['id'];
         $cantidad = intval($it['cantidad'] ?? 1);
         $precio = floatval($it['precio'] ?? 0);
+        $itemTotal = $precio * $cantidad;
 
-        // Insert detalle
-        $r = pg_query_params($conexion, $sqlDetalle, array($id_pedido, $id, $cantidad, $precio));
-        if (!$r) throw new Exception(pg_last_error($conexion));
+        // Insertar un pedido por cada artículo
+        $res = pg_query_params($conexion, $sqlInsertPedido, array($itemTotal, 'Pendiente', $id));
+        if (!$res) throw new Exception(pg_last_error($conexion));
+        $row = pg_fetch_assoc($res);
+        $id_pedido = $row['id_pedido'];
+        $inserted[] = $id_pedido;
 
         // Actualizar stock (verifica existencia suficiente)
         $r2 = pg_query_params($conexion, $sqlStock, array($cantidad, $id));
@@ -73,7 +72,10 @@ try {
     }
 
     pg_query($conexion, 'COMMIT');
-    echo json_encode(["success" => true, "id_pedido" => $id_pedido]);
+
+    // Devolver el primer id_pedido para compatibilidad con frontend (ticket.php?id=...)
+    $first = count($inserted) ? $inserted[0] : null;
+    echo json_encode(["success" => true, "id_pedido" => $first, "pedidos" => $inserted]);
 
 } catch (Exception $e) {
     pg_query($conexion, 'ROLLBACK');

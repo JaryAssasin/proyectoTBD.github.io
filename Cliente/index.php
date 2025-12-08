@@ -160,6 +160,20 @@
       font-size: 16px;
     }
 
+    .logout-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: transparent;
+      color: #e6eef6;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 2000;
+      font-size: 14px;
+    }
+
     .carrito-lateral {
       position: fixed;
       top: 0;
@@ -192,6 +206,7 @@
 </head>
 
 <body>
+  <button id="btnLogout" class="logout-btn">Salir</button>
   <button id="btnCarrito" class="cart-toggle">
     🛒 Carrito <span id="cartCountSide">0</span>
   </button>
@@ -339,6 +354,12 @@
     document.getElementById("btnCarrito").addEventListener("click", () => {
       document.getElementById("carritoLateral").classList.toggle("abierto");
       renderCarritoLateral();
+    });
+
+    // Logout handler
+    document.getElementById('btnLogout').addEventListener('click', () => {
+      // Redirigir al endpoint de logout (simple)
+      window.location.href = '../php/logout.php';
     });
 
     function renderCarritoLateral() {
